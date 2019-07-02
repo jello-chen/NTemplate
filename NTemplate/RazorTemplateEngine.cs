@@ -16,7 +16,7 @@ namespace NTemplate
         public bool EnableDebug { get; set; }
         public TextWriter DebugOutput { get; set; }
 
-        public string Execute(string template, dynamic Model)
+        public string Render(string template, dynamic Model)
         {
             string defaultNamespace = NAMESPACE;
             string defaultClassName = GetClassName();

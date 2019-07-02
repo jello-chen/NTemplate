@@ -2,6 +2,6 @@
 {
     public interface ITemplateEngine
     {
-        string Execute(string template, dynamic Model);
+        string Render(string template, dynamic Model);
     }
 }

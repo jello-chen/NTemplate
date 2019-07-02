@@ -17,7 +17,7 @@ namespace NTemplate.Tests
         {
             string template = @"@Model.Text";
             ITemplateEngine templateEngine = new RazorTemplateEngine();
-            string result = templateEngine.Execute(template, new DynamicObjectWrapper(new { Text = "Hello" }));
+            string result = templateEngine.Render(template, new DynamicObjectWrapper(new { Text = "Hello" }));
             Assert.AreEqual("Hello", result);
         }
 
@@ -31,7 +31,7 @@ namespace NTemplate.Tests
                 EnableDebug = true,
                 DebugOutput = new StreamWriter(new FileStream("debug.txt", FileMode.OpenOrCreate))
             };
-            string result = templateEngine.Execute(template, new List<DynamicObjectWrapper>
+            string result = templateEngine.Render(template, new List<DynamicObjectWrapper>
             {
                 new DynamicObjectWrapper(new { ID = 1, Name = "Name1"}),
                 new DynamicObjectWrapper(new { ID = 2, Name = "Name2"}),
