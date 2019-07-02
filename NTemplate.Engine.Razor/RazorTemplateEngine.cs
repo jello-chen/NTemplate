@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Web.Razor;
 using System.Web.Razor.Generator;
 
-namespace NTemplate
+namespace NTemplate.Engine.Razor
 {
     public class RazorTemplateEngine : ITemplateEngine
     {
@@ -32,13 +32,14 @@ namespace NTemplate
                 compiler.ReferencedAssemblies.Add("System.dll");
                 compiler.ReferencedAssemblies.Add("System.Core.dll");
                 compiler.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+                compiler.ReferencedAssemblies.Add("NTemplate.dll");
                 compiler.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);
                 compiler.GenerateInMemory = true;
                 var result = provider.CompileAssemblyFromDom(compiler, razorResults.GeneratedCode);
                 if (result.Errors.HasErrors)
                 {
                     var error = result.Errors.OfType<CompilerError>().Where(i => !i.IsWarning).FirstOrDefault();
-                    if (error != null) throw new Exception(error.ErrorText); 
+                    if (error != null) throw new Exception(error.ErrorText);
                 }
                 TemplateBase template = (TemplateBase)result.CompiledAssembly.CreateInstance(defaultNamespace + "." + defaultClassname);
                 template.Model = Model;
@@ -62,7 +63,7 @@ namespace NTemplate
             {
                 generatorResults = engine.GenerateCode(reader);
 
-                if(EnableDebug && DebugOutput != null)
+                if (EnableDebug && DebugOutput != null)
                 {
                     GenerateDebugInfo(generatorResults);
                 }

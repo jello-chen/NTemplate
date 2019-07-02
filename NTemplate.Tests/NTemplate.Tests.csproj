@@ -59,6 +59,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NTemplate.Engine.Razor\NTemplate.Engine.Razor.csproj">
+      <Project>{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}</Project>
+      <Name>NTemplate.Engine.Razor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NTemplate\NTemplate.csproj">
       <Project>{8F404A3C-5AD5-4901-82AD-E2814C406B8B}</Project>
       <Name>NTemplate</Name>

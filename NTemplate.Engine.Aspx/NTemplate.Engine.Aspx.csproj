@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F404A3C-5AD5-4901-82AD-E2814C406B8B}</ProjectGuid>
+    <ProjectGuid>{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NTemplate</RootNamespace>
-    <AssemblyName>NTemplate</AssemblyName>
+    <RootNamespace>NTemplate.Engine.Aspx</RootNamespace>
+    <AssemblyName>NTemplate.Engine.Aspx</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicObjectWrapper.cs" />
-    <Compile Include="ITemplate.cs" />
-    <Compile Include="ITemplateEngine.cs" />
-    <Compile Include="TemplateBase.cs" />
+    <Compile Include="AspxTemplateEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTemplate\NTemplate.csproj">
+      <Project>{8f404a3c-5ad5-4901-82ad-e2814c406b8b}</Project>
+      <Name>NTemplate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

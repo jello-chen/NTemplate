@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTemplate", "NTemplate\NTem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTemplate.Tests", "NTemplate.Tests\NTemplate.Tests.csproj", "{86A36137-BF0F-4405-A405-5D4167E6F486}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTemplate.Engine.Razor", "NTemplate.Engine.Razor\NTemplate.Engine.Razor.csproj", "{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTemplate.Engine.Aspx", "NTemplate.Engine.Aspx\NTemplate.Engine.Aspx.csproj", "{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{86A36137-BF0F-4405-A405-5D4167E6F486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86A36137-BF0F-4405-A405-5D4167E6F486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86A36137-BF0F-4405-A405-5D4167E6F486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE2C9A2-5B44-43A5-8708-BCC7414C917A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
