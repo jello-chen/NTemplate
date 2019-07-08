@@ -1,0 +1,48 @@
+﻿@using MergeRowSample
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Merge Row Template</title>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+        table th, table td {
+            padding: 8px;
+            line-height: 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Dimension 1</th>
+                <th>Dimension 2</th>
+                <th>Denominator</th>
+                <th>Numerator</th>
+                <th>Quotient</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(var i = 0; i < Model.GetLength(0); i++)
+        {
+            <tr>
+            @for(var j = 0; j < Model[i].GetLength(0); j++)
+            {
+                @if(Model[i][j] != null)
+                {
+                <td @if(Model[i][j].Rowspan> 1){<text>rowspan="@Model[i][j].Rowspan"</text>}>@Model[i][j].Text</td>
+                }
+            }
+            </tr>
+        }
+        </tbody>
+    </table>
+</body>
+</html>

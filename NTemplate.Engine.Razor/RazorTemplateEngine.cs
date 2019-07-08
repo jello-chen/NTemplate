@@ -24,7 +24,7 @@ namespace NTemplate.Engine.Razor
             return ExecuteInternal(generatorResults, defaultNamespace, defaultClassName, Model);
         }
 
-        private string ExecuteInternal(GeneratorResults razorResults, string defaultNamespace, string defaultClassname, dynamic Model)
+        private string ExecuteInternal(GeneratorResults razorResults, string defaultNamespace, string defaultClassname, dynamic model)
         {
             using (var provider = new CSharpCodeProvider())
             {
@@ -34,6 +34,8 @@ namespace NTemplate.Engine.Razor
                 compiler.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
                 compiler.ReferencedAssemblies.Add("NTemplate.dll");
                 compiler.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);
+                compiler.ReferencedAssemblies.Add(Assembly.GetEntryAssembly().Location);
+                
                 compiler.GenerateInMemory = true;
                 var result = provider.CompileAssemblyFromDom(compiler, razorResults.GeneratedCode);
                 if (result.Errors.HasErrors)
@@ -42,7 +44,7 @@ namespace NTemplate.Engine.Razor
                     if (error != null) throw new Exception(error.ErrorText);
                 }
                 TemplateBase template = (TemplateBase)result.CompiledAssembly.CreateInstance(defaultNamespace + "." + defaultClassname);
-                template.Model = Model;
+                template.Model = model;
                 template.Execute();
                 return template.Output.ToString();
             }
@@ -55,7 +57,10 @@ namespace NTemplate.Engine.Razor
             host.DefaultNamespace = defaultNamespace;
             host.DefaultClassName = defaultClassName;
             host.NamespaceImports.Add("System");
-            host.GeneratedClassContext = new GeneratedClassContext("Execute", "Write", "WriteLiteral");
+            host.GeneratedClassContext = new GeneratedClassContext("Execute", "Write", "WriteLiteral")
+            {
+                WriteAttributeMethodName = "WriteAttribute"
+            };
 
             GeneratorResults generatorResults;
             var engine = new System.Web.Razor.RazorTemplateEngine(host);
