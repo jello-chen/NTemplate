@@ -1,4 +1,5 @@
 ﻿using Microsoft.CSharp;
+using NTemplate.Extensions;
 using System;
 using System.CodeDom.Compiler;
 using System.IO;
@@ -14,9 +15,9 @@ namespace NTemplate.Engine.Razor
         private const string NAMESPACE = "_NTemplate";
 
         public bool EnableDebug { get; set; }
-        public TextWriter DebugOutput { get; set; }
+        public TextWriter DebugOutput { get; set; } = Console.Out;
 
-        public string Render(string template, dynamic Model)
+        public string Render(string template, object Model)
         {
             string defaultNamespace = NAMESPACE;
             string defaultClassName = GetClassName();
@@ -24,7 +25,7 @@ namespace NTemplate.Engine.Razor
             return ExecuteInternal(generatorResults, defaultNamespace, defaultClassName, Model);
         }
 
-        private string ExecuteInternal(GeneratorResults razorResults, string defaultNamespace, string defaultClassname, dynamic model)
+        private string ExecuteInternal(GeneratorResults razorResults, string defaultNamespace, string defaultClassname, object model)
         {
             using (var provider = new CSharpCodeProvider())
             {
@@ -34,7 +35,7 @@ namespace NTemplate.Engine.Razor
                 compiler.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
                 compiler.ReferencedAssemblies.Add("NTemplate.dll");
                 compiler.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);
-                compiler.ReferencedAssemblies.Add(Assembly.GetEntryAssembly().Location);
+                //compiler.ReferencedAssemblies.Add(Assembly.GetEntryAssembly().Location);
                 
                 compiler.GenerateInMemory = true;
                 var result = provider.CompileAssemblyFromDom(compiler, razorResults.GeneratedCode);
@@ -44,7 +45,7 @@ namespace NTemplate.Engine.Razor
                     if (error != null) throw new Exception(error.ErrorText);
                 }
                 TemplateBase template = (TemplateBase)result.CompiledAssembly.CreateInstance(defaultNamespace + "." + defaultClassname);
-                template.Model = model;
+                template.Model = model?.GetType().IsAnonymous() == true ? new DynamicObjectWrapper(model) : model;
                 template.Execute();
                 return template.Output.ToString();
             }

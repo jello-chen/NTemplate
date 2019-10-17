@@ -14,12 +14,12 @@ namespace NTemplate.Tests
         {
             string template = @"@Model.Text";
             ITemplateEngine templateEngine = new RazorTemplateEngine();
-            string result = templateEngine.Render(template, new DynamicObjectWrapper(new { Text = "Hello" }));
+            string result = templateEngine.Render(template, new { Text = "Hello" });
             Assert.AreEqual("Hello", result);
         }
 
         [TestMethod()]
-        public void ExecuteFileTemplateTest()
+        public void ExecuteListModelTemplateTest()
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "template.cshtml");
             string template = File.ReadAllText(path);
@@ -28,13 +28,27 @@ namespace NTemplate.Tests
                 EnableDebug = true,
                 DebugOutput = new StreamWriter(new FileStream("debug.txt", FileMode.OpenOrCreate))
             };
-            string result = templateEngine.Render(template, new List<DynamicObjectWrapper>
+            string result = templateEngine.Render(template, new List<Product>
             {
-                new DynamicObjectWrapper(new { ID = 1, Name = "Name1"}),
-                new DynamicObjectWrapper(new { ID = 2, Name = "Name2"}),
+                new Product { ID = 1, Name = "Name1"},
+                new Product { ID = 2, Name = "Name2"},
             });
-
             Assert.AreEqual("<table><tr><td>1</td><td>Name1</td></tr><tr><td>2</td><td>Name2</td></tr></table>", result);
         }
+
+        [TestMethod()]
+        public void ExecuteAnonymousModelTemplateTest()
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "anonymous-model-template.cshtml");
+            string template = File.ReadAllText(path);
+            ITemplateEngine templateEngine = new RazorTemplateEngine();
+            string result = templateEngine.Render(template, new { Num1 = 1, Num2 = 2});
+            Assert.AreEqual("<span>3</span>", result);
+        }
+    }
+    public class Product
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

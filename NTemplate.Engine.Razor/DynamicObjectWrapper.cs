@@ -3,19 +3,22 @@ using System.Reflection;
 
 namespace NTemplate
 {
-    public class DynamicObjectWrapper : DynamicObject
+    internal class DynamicObjectWrapper : DynamicObject
     {
         private readonly object instance;
 
-        public DynamicObjectWrapper(object instance) => this.instance = instance;
+        public DynamicObjectWrapper(object instance) => this.instance = instance ?? this;
 
         public override bool TryGetMember(GetMemberBinder binder, out object result) => GetProperty(instance, binder.Name, out result);
 
+        public override bool TryConvert(ConvertBinder binder, out object result)
+        {
+            result = System.Convert.ChangeType(instance, binder.Type);
+            return true;
+        }
+
         private bool GetProperty(object instance, string name, out object result)
         {
-            if (instance == null)
-                instance = this;
-
             var memberInfos = instance.GetType().GetMember(name, BindingFlags.Public
                                                              | BindingFlags.NonPublic
                                                              | BindingFlags.GetProperty
