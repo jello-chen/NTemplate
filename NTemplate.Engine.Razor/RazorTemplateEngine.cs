@@ -10,14 +10,11 @@ using System.Web.Razor.Generator;
 
 namespace NTemplate.Engine.Razor
 {
-    public class RazorTemplateEngine : ITemplateEngine
+    public class RazorTemplateEngine : TemplateEngineBase
     {
         private const string NAMESPACE = "_NTemplate";
 
-        public bool EnableDebug { get; set; }
-        public TextWriter DebugOutput { get; set; } = Console.Out;
-
-        public string Render(string template, object Model)
+        public override string Render(string template, object Model)
         {
             string defaultNamespace = NAMESPACE;
             string defaultClassName = GetClassName();
@@ -45,9 +42,8 @@ namespace NTemplate.Engine.Razor
                     if (error != null) throw new Exception(error.ErrorText);
                 }
                 TemplateBase template = (TemplateBase)result.CompiledAssembly.CreateInstance(defaultNamespace + "." + defaultClassname);
-                template.Model = model?.GetType().IsAnonymous() == true ? new DynamicObjectWrapper(model) : model;
-                template.Execute();
-                return template.Output.ToString();
+                var _model = model?.GetType().IsAnonymous() == true ? new DynamicObjectWrapper(model) : model;
+                return template.Generate(_model);
             }
         }
 

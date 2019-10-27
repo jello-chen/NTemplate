@@ -2,9 +2,9 @@
 
 namespace NTemplate.Engine.Aspx
 {
-    public class AspxTemplateEngine : ITemplateEngine
+    public class AspxTemplateEngine : TemplateEngineBase
     {
-        public string Render(string template, dynamic Model)
+        public override string Render(string template, dynamic Model)
         {
             throw new NotImplementedException();
         }

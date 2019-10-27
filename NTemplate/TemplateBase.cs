@@ -7,7 +7,7 @@ namespace NTemplate
     {
         public TemplateBase() => this.Output = new StringWriter();
 
-        public dynamic Model { get; set; }
+        public virtual dynamic Model { get; set; }
         public StringWriter Output { get; private set; }
 
         public virtual void Write(object value) => this.WriteLiteral(value?.ToString());
@@ -253,12 +253,16 @@ namespace NTemplate
             WriteLiteral(trailer.Item1);
         }
 
-        public void WriteEncoded(string value)
-        {
-            
-        }
+        public void WriteEncoded(string value) { }
 
         public abstract void Execute();
+
+        public virtual string Generate(object model)
+        {
+            Model = model;
+            Execute();
+            return Output.ToString();
+        }
 
         void IDisposable.Dispose() => this.Output.Dispose();
     }
