@@ -1,12 +1,17 @@
-﻿using System;
+﻿using NTemplate.Engine.Aspx.Parser.SyntaxTree;
+using System.IO;
 
 namespace NTemplate.Engine.Aspx
 {
     public class AspxTemplateEngine : TemplateEngineBase
     {
-        public override string Render(string template, dynamic Model)
+        public AspxTemplateEngine() : this(null)
         {
-            throw new NotImplementedException();
+
+        }
+        public AspxTemplateEngine(TextWriter debugOutput) : base(new TemplateCompiler(new AspxTemplateParser(), debugOutput))
+        {
+
         }
     }
 }

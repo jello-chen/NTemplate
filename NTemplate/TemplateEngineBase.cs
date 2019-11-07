@@ -1,13 +1,27 @@
-﻿using System;
-using System.IO;
+﻿using NTemplate.Extensions;
 
 namespace NTemplate
 {
     public abstract class TemplateEngineBase : ITemplateEngine
     {
-        public virtual bool EnableDebug { get; set; }
-        public virtual TextWriter DebugOutput { get; set; } = Console.Out;
+        private readonly ITemplateCompiler compiler;
 
-        public abstract string Render(string template, dynamic Model);
+        public TemplateEngineBase(ITemplateCompiler compiler)
+        {
+            this.compiler = compiler;
+        }
+
+        public string Render(string template, dynamic model)
+        {
+            var compileResult = compiler.CompileTemplate(template);
+            return RenderTemplateFromCompileResult(compileResult, model);
+        }
+
+        private string RenderTemplateFromCompileResult(TemplateCompileResult compileResult, dynamic model)
+        {
+            TemplateBase template = (TemplateBase)compileResult.CompiledAssembly.CreateInstance(compileResult.Namespace + "." + compileResult.Class);
+            var _model = ((object)model)?.GetType().IsAnonymous() == true ? new DynamicObjectWrapper(model) : model;
+            return template.Generate(_model);
+        }
     }
 }

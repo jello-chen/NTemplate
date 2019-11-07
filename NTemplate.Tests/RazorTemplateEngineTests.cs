@@ -3,7 +3,6 @@ using NTemplate.Engine.Razor;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace NTemplate.Tests
 {
@@ -24,11 +23,7 @@ namespace NTemplate.Tests
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "template.cshtml");
             string template = File.ReadAllText(path);
-            ITemplateEngine templateEngine = new RazorTemplateEngine()
-            {
-                EnableDebug = true,
-                DebugOutput = new StreamWriter(new FileStream("debug.txt", FileMode.OpenOrCreate))
-            };
+            ITemplateEngine templateEngine = new RazorTemplateEngine(new StreamWriter(new FileStream("debug.txt", FileMode.OpenOrCreate)));
             string result = templateEngine.Render(template, new List<Product>
             {
                 new Product { ID = 1, Name = "Name1"},
@@ -52,8 +47,7 @@ namespace NTemplate.Tests
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "template2.cshtml");
             string template = File.ReadAllText(path);
-            TemplateEngineBase templateEngine = new RazorTemplateEngine();
-            templateEngine.EnableDebug = true;
+            TemplateEngineBase templateEngine = new RazorTemplateEngine(Console.Out);
             string result = templateEngine.Render(template, 2);
             Assert.AreEqual("110", result);
         }

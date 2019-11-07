@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace NTemplate
 {
-    internal class DynamicObjectWrapper : DynamicObject
+    public class DynamicObjectWrapper : DynamicObject
     {
         private readonly object instance;
 

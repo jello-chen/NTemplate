@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspxTemplateEngineTests.cs" />
     <Compile Include="RazorTemplateEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +66,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NTemplate.Engine.Aspx\NTemplate.Engine.Aspx.csproj">
+      <Project>{2ce2c9a2-5b44-43a5-8708-bcc7414c917a}</Project>
+      <Name>NTemplate.Engine.Aspx</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NTemplate.Engine.Razor\NTemplate.Engine.Razor.csproj">
       <Project>{A00EAAFA-3323-4FF7-9CF7-4A267A53B0B3}</Project>
       <Name>NTemplate.Engine.Razor</Name>

@@ -42,6 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspxTemplateEngine.cs" />
+    <Compile Include="Generator\BlockGenerator.cs" />
+    <Compile Include="Generator\CommentGenerator.cs" />
+    <Compile Include="Generator\DirectiveGenerator.cs" />
+    <Compile Include="Generator\ExpressionGenerator.cs" />
+    <Compile Include="Generator\LiteralGenerator.cs" />
+    <Compile Include="Generator\StatementGenerator.cs" />
+    <Compile Include="Parser\SyntaxTree\AspxTemplateParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +57,6 @@
       <Name>NTemplate</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

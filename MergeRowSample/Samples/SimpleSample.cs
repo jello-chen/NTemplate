@@ -34,11 +34,7 @@ namespace MergeRowSample.Samples
             string template = File.ReadAllText(path);
 
             // Construct the razor template engine
-            ITemplateEngine templateEngine = new RazorTemplateEngine()
-            {
-                EnableDebug = true,
-                DebugOutput = new StreamWriter(new FileStream(DEBUG_FILE, FileMode.OpenOrCreate))
-            };
+            ITemplateEngine templateEngine = new RazorTemplateEngine(new StreamWriter(new FileStream(DEBUG_FILE, FileMode.OpenOrCreate)));
 
             // Render by template and data
             string result = templateEngine.Render(template, array);
