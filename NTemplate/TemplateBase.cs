@@ -8,7 +8,7 @@ namespace NTemplate
         public TemplateBase() => this.Output = new StringWriter();
 
         public virtual dynamic Model { get; set; }
-        public StringWriter Output { get; private set; }
+        public StringWriter Output { get; }
 
         public virtual void Write(object value) => this.WriteLiteral(value?.ToString());
 

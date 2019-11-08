@@ -11,8 +11,8 @@ namespace NTemplate.Engine.Aspx.Generator
         public override CodeStatement GenerateStatement()
         {
             CodeExpression textExpression = new CodePrimitiveExpression(Text);
-            CodeExpression builderObject = new CodeVariableReferenceExpression("Output");
-            CodeExpression appendExpression = new CodeMethodInvokeExpression(builderObject, "Append", textExpression);
+            CodeExpression builderObject = new CodeThisReferenceExpression();
+            CodeExpression appendExpression = new CodeMethodInvokeExpression(builderObject, "Write", textExpression);
             return new CodeExpressionStatement(appendExpression);
         }
     }
